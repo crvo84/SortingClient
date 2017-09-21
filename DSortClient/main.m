@@ -47,7 +47,12 @@ int main(int argc, const char * argv[])
             dispatch_group_wait(serviceGroup, DISPATCH_TIME_FOREVER);
             
             // TODO: merge sorted subarrays
-            NSLog(@"");
+            NSArray *result = [MergeHelper mergeArrays:serverManager.sortedArrays];
+            if (result != nil && result.count == 1) {
+                NSLog(@"%@", result[0]);
+            } else {
+                NSLog(@"Error: Failed to merge sort arrays");
+            }
             
         } else {
             // TODO: merge locally
