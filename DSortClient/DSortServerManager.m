@@ -47,63 +47,13 @@
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
-            NSLog(@"Success");
-            NSError *error = nil;
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &error];
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSLog(@"%@", jsonArray);
         }
     }];
     
     [task resume];
     [session finishTasksAndInvalidate]; // ?
-    
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-////    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-//    [manager POST:urlStr parameters:array progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"JSON: %@", responseObject);
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"Error: %@", error);
-//    }];
-    
-    
-//    NSURL *url = [NSURL URLWithString:urlStr];
-//    NSLog(@"%@", url);
-
-//    NSString *urlStr = [[NSString alloc] initWithFormat:@"https://crvo84-dsort%d.herokuapp.com/sort", serverIndex + 1];
-//    NSError *requestError;
-//    NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST"
-//                                                                          URLString:urlStr
-//                                                                         parameters:array error:&requestError];
-//    
-//    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-//    
-//    
-//    NSURLSessionDownloadTask *sortTask = [manager downloadTaskWithRequest:request
-//                                                                 progress:nil
-//                                                              destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-//    
-//        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-//        
-//        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-//        
-//    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-//        NSLog(@"File downloaded to: %@", filePath);
-//        NSData *jsonData = [[NSData alloc] initWithContentsOfURL:filePath];
-//        
-//        NSError *serializationError = nil;
-//        NSArray *result = [NSJSONSerialization JSONObjectWithData: jsonData
-//                                                          options: NSJSONReadingMutableContainers
-//                                                            error: &serializationError];
-//        if (!serializationError) {
-//            [self.sortedArrays insertObject:result atIndex:0];
-//        }
-//        
-//        completion(serializationError);
-//    }];
-//    
-//    [sortTask resume];
 }
 
 #pragma mark - Getters
