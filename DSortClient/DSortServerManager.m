@@ -42,16 +42,16 @@
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:array options:0 error:nil];
 
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-        } else {
-            // successful response
+
+        if (!error) { // successful response
             // parse the response data to an array
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSLog(@"%@", jsonArray);
             // append the sorted array to the array of 'sorted arrays'
             [self.sortedArrays insertObject:jsonArray atIndex:self.sortedArrays.count];
         }
+        
+        completion(error);
     }];
     
     [task resume];
