@@ -360,7 +360,7 @@ int main(int argc, const char * argv[])
             [subarraysToSort insertObject:subarray atIndex:i];
         }
         
-        DSortServerManager *serverManager = [[DSortServerManager alloc] initWithNumberOfServers:1];
+        DSortServerManager *serverManager = [[DSortServerManager alloc] initWithNumberOfServers:m];
         
         dispatch_group_t serviceGroup = dispatch_group_create();
         
