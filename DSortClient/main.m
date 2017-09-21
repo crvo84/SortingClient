@@ -393,9 +393,9 @@ int main(int argc, const char * argv[])
         
         double localComputationTime = [localEnd timeIntervalSinceDate:localStart];
         
+        // RESULTS
         
-        
-        NSLog(@"-----------------------------------\nn = %d\nm = %d\n-----------------------------------\nDISTRIBUIDO\nTiempo Total = %f\nTiempo de Comunicación = %f\nTiempo de Computación = %f\n-----------------------------------\nLOCAL\nTiempo de Computación = %f\n-----------------------------------", n, m, serverManager.getMaxComputationTime + serverManager.getMaxCommunicationTime, serverManager.getMaxCommunicationTime, serverManager.getMaxComputationTime, localComputationTime);
+        NSLog(@"\n-----------------------------------\nn = %d\nm = %d\n-----------------------------------\nDISTRIBUIDO\nTiempo Total = %f\nTiempo de Comunicación = %f\nTiempo de Computación = %f\n-----------------------------------\nLOCAL\nTiempo de Computación = %f\n-----------------------------------", n, m, serverManager.getMaxComputationTime + serverManager.getMaxCommunicationTime, serverManager.getMaxCommunicationTime, serverManager.getMaxComputationTime, localComputationTime);
     }
     
     return 0;
