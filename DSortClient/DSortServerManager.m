@@ -7,7 +7,6 @@
 //
 
 #import "DSortServerManager.h"
-#import "AFNetworking.h"
 
 @implementation DSortServerManager
 
