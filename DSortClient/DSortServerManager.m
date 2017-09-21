@@ -25,7 +25,7 @@
                toSortArray:(NSArray *)array
             withCompletion:(void (^)(NSError *))completion
 {
-    NSString *urlStr = [[NSString alloc] initWithFormat:@"http://0.0.0.0:8080/sort"];
+    NSString *urlStr = [[NSString alloc] initWithFormat:@"https://crvo84-dsort%d.herokuapp.com/sort", serverIndex + 1];
     NSLog(@"%@", urlStr);
     
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
