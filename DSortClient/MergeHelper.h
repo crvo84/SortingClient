@@ -8,10 +8,3 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MergeHelper : NSObject
-
-+ (NSArray *)mergeLeftArray:(NSArray *)left withRightArray:(NSArray *)right;
-+ (NSArray *)mergeArrays:(NSArray *)arrays;
-+ (NSArray *)mergeSort:(NSArray *)array;
-
-@end

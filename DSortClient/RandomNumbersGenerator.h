@@ -8,8 +8,3 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RandomNumbersGenerator : NSObject
-
-+ (NSArray *)arrayOfIntegerNumbersWithSize:(uint32_t)size maximum:(uint32_t)max;
-
-@end
