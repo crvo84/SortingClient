@@ -17,7 +17,6 @@ int main(int argc, const char * argv[]) {
         if (distributed) {
             NSArray *array = @[@2, @1, @8, @6, @0, @1000, @3, @67, @999];
             
-            
             DSortServerManager *serverManager = [[DSortServerManager alloc] initWithNumberOfServers:1];
             
             dispatch_group_t serviceGroup = dispatch_group_create();

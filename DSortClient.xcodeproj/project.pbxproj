@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73BB17841F7379A500938112 /* RandomNumbersGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 73BB17831F7379A500938112 /* RandomNumbersGenerator.m */; };
 		73FBE0741F7343D3006699C2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FBE0731F7343D3006699C2 /* main.m */; };
 		73FBE07E1F7343FF006699C2 /* DSortServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FBE07B1F7343FF006699C2 /* DSortServerManager.m */; };
 		73FBE07F1F7343FF006699C2 /* MergeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FBE07D1F7343FF006699C2 /* MergeHelper.m */; };
@@ -25,6 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		73BB17821F7379A500938112 /* RandomNumbersGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomNumbersGenerator.h; sourceTree = "<group>"; };
+		73BB17831F7379A500938112 /* RandomNumbersGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomNumbersGenerator.m; sourceTree = "<group>"; };
 		73FBE0701F7343D3006699C2 /* DSortClient */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DSortClient; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FBE0731F7343D3006699C2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		73FBE07A1F7343FF006699C2 /* DSortServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSortServerManager.h; sourceTree = "<group>"; };
@@ -68,6 +71,8 @@
 				73FBE07B1F7343FF006699C2 /* DSortServerManager.m */,
 				73FBE07C1F7343FF006699C2 /* MergeHelper.h */,
 				73FBE07D1F7343FF006699C2 /* MergeHelper.m */,
+				73BB17821F7379A500938112 /* RandomNumbersGenerator.h */,
+				73BB17831F7379A500938112 /* RandomNumbersGenerator.m */,
 			);
 			path = DSortClient;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 				73FBE0741F7343D3006699C2 /* main.m in Sources */,
 				73FBE07F1F7343FF006699C2 /* MergeHelper.m in Sources */,
 				73FBE07E1F7343FF006699C2 /* DSortServerManager.m in Sources */,
+				73BB17841F7379A500938112 /* RandomNumbersGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
