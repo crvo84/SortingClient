@@ -27,8 +27,6 @@
 {
     // create the url (hosted on Heroku) with the given server index
     NSString *urlStr = [[NSString alloc] initWithFormat:@"https://crvo84-dsort%d.herokuapp.com/sort", serverIndex + 1];
-    NSLog(@"%@", urlStr);
-    
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     NSURL *url = [NSURL URLWithString:urlStr];
@@ -46,7 +44,6 @@
         if (!error) { // successful response
             // parse the response data to an array
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSLog(@"%@", jsonArray);
             // append the sorted array to the array of 'sorted arrays'
             [self.sortedArrays insertObject:jsonArray atIndex:self.sortedArrays.count];
         }

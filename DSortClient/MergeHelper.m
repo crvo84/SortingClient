@@ -81,4 +81,25 @@
     return arraysLeft;
 }
 
++ (NSArray *)mergeSort:(NSArray *)array
+{
+    NSUInteger count = array.count;
+    
+    // if the number of elements is <= 1, return same array
+    if (array.count <= 1) { return array; }
+    
+    NSUInteger leftHalfSize = count / 2;
+    
+    NSArray *left = [MergeHelper mergeSort:[array subarrayWithRange:NSMakeRange(0, leftHalfSize)]];
+    NSArray *right = [MergeHelper mergeSort:[array subarrayWithRange:NSMakeRange(leftHalfSize, count - leftHalfSize)]];
+    
+    NSArray *result = [MergeHelper mergeLeftArray:left withRightArray:right];
+    
+    if (result.count != left.count + right.count) {
+        NSLog(@"Error in merge sorting.");
+    }
+    
+    return result;
+}
+
 @end

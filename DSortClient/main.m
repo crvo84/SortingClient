@@ -14,49 +14,61 @@
 int main(int argc, const char * argv[])
 {
     @autoreleasepool {
-        BOOL distributed = YES;
         int n = 1000;
         int m = 4; // max 4
         int max = 999;
         
-        if (distributed) { // distributed merge
-            int subarraySize = n/m; // size of each array to be sorted by each server
-            
-            NSMutableArray *subarraysToSort = [[NSMutableArray alloc] init]; // array of arrays
-            for (int i = 0; i < m; i++) {
-                NSArray *subarray = [RandomNumbersGenerator arrayOfIntegerNumbersWithSize:subarraySize
-                                                                                  maximum:max];
-                [subarraysToSort insertObject:subarray atIndex:i];
-            }
-            
-            DSortServerManager *serverManager = [[DSortServerManager alloc] initWithNumberOfServers:1];
-            
-            dispatch_group_t serviceGroup = dispatch_group_create();
-            
-            for (int i = 0; i < subarraysToSort.count; i++) {
-                dispatch_group_enter(serviceGroup);
-                [serverManager askServerWithIndex:i // server index
-                                      toSortArray:subarraysToSort[i]
-                                   withCompletion:^(NSError *error) {
-                    if (error) { NSLog(@"%@", error); }
-                    
-                    dispatch_group_leave(serviceGroup);
-                }];
-            }
-            // all m subarrays must be sorted at this point
-            dispatch_group_wait(serviceGroup, DISPATCH_TIME_FOREVER);
-            
-            // TODO: merge sorted subarrays
-            NSArray *result = [MergeHelper mergeArrays:serverManager.sortedArrays];
-            if (result != nil && result.count == 1) {
-                NSLog(@"%@", result[0]);
-            } else {
-                NSLog(@"Error: Failed to merge sort arrays");
-            }
-            
-        } else {
-            // TODO: merge locally
+        NSArray *randomArray = [RandomNumbersGenerator arrayOfIntegerNumbersWithSize:n maximum:max];
+        
+        NSArray *distributedResult;
+        NSArray *localResult;
+        
+        /* ------------------- */
+        /* DISTRIBUTED SORTING */
+        /* ------------------- */
+        int subarraySize = n/m; // size of each array to be sorted by each server
+        
+        NSMutableArray *subarraysToSort = [[NSMutableArray alloc] init]; // array of arrays
+        
+        // 0 -> 0, 1 -> 2, 2 -> 4, 3 -> 6
+        // 0 -> 0, 1 -> 3, 2 -> 6, 3 -> 9
+        for (int i = 0; i < m; i++) {
+            NSRange range = NSMakeRange(i*subarraySize, subarraySize);
+            NSArray *subarray = [randomArray subarrayWithRange:range];
+            [subarraysToSort insertObject:subarray atIndex:i];
         }
+        
+        DSortServerManager *serverManager = [[DSortServerManager alloc] initWithNumberOfServers:1];
+        
+        dispatch_group_t serviceGroup = dispatch_group_create();
+        
+        for (int i = 0; i < subarraysToSort.count; i++) {
+            dispatch_group_enter(serviceGroup);
+            [serverManager askServerWithIndex:i // server index
+                                  toSortArray:subarraysToSort[i]
+                               withCompletion:^(NSError *error) {
+                if (error) { NSLog(@"%@", error); }
+                
+                dispatch_group_leave(serviceGroup);
+            }];
+        }
+        // all m subarrays must be sorted at this point
+        dispatch_group_wait(serviceGroup, DISPATCH_TIME_FOREVER);
+        
+        // TODO: merge sorted subarrays
+        NSArray *result = [MergeHelper mergeArrays:serverManager.sortedArrays];
+        if (result != nil && result.count == 1) {
+            distributedResult = result[0];
+        } else {
+            NSLog(@"Error: Failed to merge sort arrays");
+        }
+        
+        /* ------------------- */
+        /* -- LOCAL SORTING -- */
+        /* ------------------- */
+        localResult = [MergeHelper mergeSort:randomArray];
+
+        NSLog(@"");
     }
     
     return 0;
