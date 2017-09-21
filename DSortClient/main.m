@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+/* ------------------ */
+/* DSortServerManager */
+/* ------------------ */
 @interface DSortServerManager : NSObject
 
 @property (nonatomic) int numberOfServers;
@@ -170,10 +173,12 @@
 
 #pragma mark - Setters
 
-
-
 @end
 
+
+/* ------------------ */
+/* --- MergeHelper -- */
+/* ------------------ */
 
 @interface MergeHelper : NSObject
 
@@ -279,13 +284,16 @@
 
 @end
 
+
+/* ---------------------- */
+/* RandomNumbersGenerator */
+/* ---------------------- */
+
 @interface RandomNumbersGenerator : NSObject
 
 + (NSArray *)arrayOfIntegerNumbersWithSize:(uint32_t)size maximum:(uint32_t)max;
 
 @end
-
-#import "RandomNumbersGenerator.h"
 
 @implementation RandomNumbersGenerator
 
