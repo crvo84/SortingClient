@@ -12,24 +12,29 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        // insert code here...
-        NSArray *array = @[@2, @1, @8, @6, @0, @1000, @3, @67, @999];
-
+        BOOL distributed = true;
         
-        DSortServerManager *serverManager = [[DSortServerManager alloc] initWithNumberOfServers:1];
-
-        dispatch_group_t serviceGroup = dispatch_group_create();
-        
-        dispatch_group_enter(serviceGroup);
-        [serverManager askServerWithIndex:0 toSortArray:array withCompletion:^(NSError *error) {
-            if (error) {
-                NSLog(@"%@", error);
-            }
+        if (distributed) {
+            NSArray *array = @[@2, @1, @8, @6, @0, @1000, @3, @67, @999];
             
-            dispatch_group_leave(serviceGroup);
-        }];
-        
-        dispatch_group_wait(serviceGroup, DISPATCH_TIME_FOREVER);
+            
+            DSortServerManager *serverManager = [[DSortServerManager alloc] initWithNumberOfServers:1];
+            
+            dispatch_group_t serviceGroup = dispatch_group_create();
+            
+            dispatch_group_enter(serviceGroup);
+            [serverManager askServerWithIndex:0 toSortArray:array withCompletion:^(NSError *error) {
+                if (error) {
+                    NSLog(@"%@", error);
+                }
+                
+                dispatch_group_leave(serviceGroup);
+            }];
+            
+            dispatch_group_wait(serviceGroup, DISPATCH_TIME_FOREVER);
+        } else {
+            // TODO: merge locally
+        }
     }
     
     return 0;
