@@ -78,7 +78,10 @@
             double computationTime = [computationTimeNum doubleValue];
             double communicationTime = totalTime - computationTime;
             
-            [self.sortedArrays insertObject:resultArray atIndex:self.sortedArrays.count];
+            if (resultArray != nil) {
+                [self.sortedArrays insertObject:resultArray atIndex:self.sortedArrays.count];
+            }
+            
             [self.communicationTimes insertObject:@(communicationTime) atIndex:self.communicationTimes.count];
             [self.computationTimes insertObject:@(computationTime) atIndex:self.computationTimes.count];
         }
