@@ -38,21 +38,84 @@
     
     // in the body of the http request, we add the array of integers to be sorted
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:array options:0 error:nil];
-
+    
+    NSDate *start = [NSDate date]; // START TIME
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-
+        
         if (!error) { // successful response
-            // parse the response data to an array
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            // append the sorted array to the array of 'sorted arrays'
-            [self.sortedArrays insertObject:jsonArray atIndex:self.sortedArrays.count];
+            NSDate *end = [NSDate date]; // END DATE
+            double totalTime = [end timeIntervalSinceDate:start];
+            
+            // parse the response data to a dictionary
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                         options:NSJSONReadingMutableContainers error:nil];
+            NSArray *resultArray = responseDict[@"result"];
+            NSNumber *computationTimeNum = responseDict[@"time"];
+            double computationTime = [computationTimeNum doubleValue];
+            double communicationTime = totalTime - computationTime;
+            
+            [self.sortedArrays insertObject:resultArray atIndex:self.sortedArrays.count];
+            [self.communicationTimes insertObject:@(communicationTime) atIndex:self.communicationTimes.count];
+            [self.computationTimes insertObject:@(computationTime) atIndex:self.computationTimes.count];
         }
         
         completion(error);
     }];
     
     [task resume];
-    [session finishTasksAndInvalidate]; // ?
+    [session finishTasksAndInvalidate];
+}
+
+// TOTAL Times
+
+- (double)getTotalCommunicationTime
+{
+    double totalTime = 0;
+    for (int i = 0; i < self.communicationTimes.count; i++) {
+        NSNumber *timeNum = self.communicationTimes[i];
+        totalTime += [timeNum doubleValue];
+    }
+    
+    return totalTime;
+}
+
+- (double)getTotalComputationTime
+{
+    double totalTime = 0;
+    for (int i = 0; i < self.computationTimes.count; i++) {
+        NSNumber *timeNum = self.computationTimes[i];
+        totalTime += [timeNum doubleValue];
+    }
+    
+    return totalTime;
+}
+
+// AVERAGE TIMES
+
+- (double)getMaxCommunicationTime
+{
+    double max = 0;
+    for (int i = 0; i < self.communicationTimes.count; i++) {
+        double time = [self.communicationTimes[i] doubleValue];
+        if (time > max) {
+            max = time;
+        }
+    }
+    
+    return max;
+}
+
+- (double)getMaxComputationTime
+{
+    double max = 0;
+    for (int i = 0; i < self.computationTimes.count; i++) {
+        double time = [self.computationTimes[i] doubleValue];
+        if (time > max) {
+            max = time;
+        }
+    }
+    
+    return max;
 }
 
 #pragma mark - Getters
@@ -64,6 +127,24 @@
     }
     
     return _sortedArrays;
+}
+
+- (NSMutableArray *)communicationTimes
+{
+    if (!_communicationTimes) {
+        _communicationTimes = [[NSMutableArray alloc] init];
+    }
+    
+    return _communicationTimes;
+}
+
+- (NSMutableArray *)computationTimes
+{
+    if (!_computationTimes) {
+        _computationTimes = [[NSMutableArray alloc] init];
+    }
+    
+    return _computationTimes;
 }
 
 #pragma mark - Setters
