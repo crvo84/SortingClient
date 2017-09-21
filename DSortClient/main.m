@@ -30,8 +30,6 @@ int main(int argc, const char * argv[])
         
         NSMutableArray *subarraysToSort = [[NSMutableArray alloc] init]; // array of arrays
         
-        // 0 -> 0, 1 -> 2, 2 -> 4, 3 -> 6
-        // 0 -> 0, 1 -> 3, 2 -> 6, 3 -> 9
         for (int i = 0; i < m; i++) {
             NSRange range = NSMakeRange(i*subarraySize, subarraySize);
             NSArray *subarray = [randomArray subarrayWithRange:range];
@@ -55,7 +53,6 @@ int main(int argc, const char * argv[])
         // all m subarrays must be sorted at this point
         dispatch_group_wait(serviceGroup, DISPATCH_TIME_FOREVER);
         
-        // TODO: merge sorted subarrays
         NSArray *result = [MergeHelper mergeArrays:serverManager.sortedArrays];
         if (result != nil && result.count == 1) {
             distributedResult = result[0];
