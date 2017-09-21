@@ -21,7 +21,10 @@
                toSortArray:(NSArray *)array
             withCompletion:(void (^)(NSError *))completion;
 
-- (double)getTotalCommunicationTime;
-- (double)getTotalComputationTime;
+- (double)getCommunicationTimeSum;
+- (double)getComputationTimeSum;
+
+- (double)getMaxCommunicationTime;
+- (double)getMaxComputationTime;
 
 @end

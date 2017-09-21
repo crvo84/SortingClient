@@ -68,7 +68,7 @@
 
 // TOTAL Times
 
-- (double)getTotalCommunicationTime
+- (double)getCommunicationTimeSum
 {
     double totalTime = 0;
     for (int i = 0; i < self.communicationTimes.count; i++) {
@@ -79,7 +79,7 @@
     return totalTime;
 }
 
-- (double)getTotalComputationTime
+- (double)getComputationTimeSum
 {
     double totalTime = 0;
     for (int i = 0; i < self.computationTimes.count; i++) {

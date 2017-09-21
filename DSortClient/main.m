@@ -63,9 +63,13 @@ int main(int argc, const char * argv[])
         /* ------------------- */
         /* -- LOCAL SORTING -- */
         /* ------------------- */
+        NSDate *localStart = [NSDate date];
         localResult = [MergeHelper mergeSort:randomArray];
+        NSDate *localEnd = [NSDate date];
+        
+        double localComputationTime = [localEnd timeIntervalSinceDate:localStart];
 
-        NSLog(@"");
+        NSLog(@"-----------------------------------\nn = %d\nm = %d\n-----------------------------------\nDISTRIBUIDO\nTiempo Total = %f\nTiempo de Comunicación = %f\nTiempo de Computación = %f\n-----------------------------------\nLOCAL\nTiempo de Computación = %f\n-----------------------------------", n, m, serverManager.getMaxComputationTime + serverManager.getMaxCommunicationTime, serverManager.getMaxCommunicationTime, serverManager.getMaxComputationTime, localComputationTime);
     }
     
     return 0;
