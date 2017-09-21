@@ -13,18 +13,23 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
-        NSArray *left = @[@2, @4, @6, @9, @22, @59];
-        NSArray *right = @[@5, @6, @8, @15, @17, @70];
-        //        NSArray *merged = [MergeHelper mergeLeftArray:left withRightArray:right];
-        //
-        //        NSLog(@"%@", merged);
-        DSortServerManager *serverManager = [[DSortServerManager alloc] initWithNumberOfServers:1];
+        NSArray *array = @[@2, @1, @8, @6, @0, @1000, @3, @67, @999];
+
         
-        [serverManager askServerWithIndex:0 toSortArray:left withCompletion:^(NSError *error) {
+        DSortServerManager *serverManager = [[DSortServerManager alloc] initWithNumberOfServers:1];
+
+        dispatch_group_t serviceGroup = dispatch_group_create();
+        
+        dispatch_group_enter(serviceGroup);
+        [serverManager askServerWithIndex:0 toSortArray:array withCompletion:^(NSError *error) {
             if (error) {
-                print(error);
+                NSLog(@"%@", error);
             }
+            
+            dispatch_group_leave(serviceGroup);
         }];
+        
+        dispatch_group_wait(serviceGroup, DISPATCH_TIME_FOREVER);
     }
     
     return 0;
